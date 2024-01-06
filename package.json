@@ -2,6 +2,11 @@
   "name": "decole-store",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Murat Toimet",
+    "email": "toimetm@gmail.com",
+    "url": "https://toimet.tech"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
