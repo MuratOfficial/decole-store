@@ -1,11 +1,9 @@
-"use client";
-
 // import { getCollectionProducts } from "lib/shopware";
 // import { isSeoUrls } from "lib/shopware/helpers";
 import Link from "next/link";
 import { GridTileImage } from "./grid/tile";
-import useRandomProducts from "@/hooks/use-random-product";
 import { useEffect } from "react";
+import { fakeProducts } from "@/lib/fakeData";
 
 export function Carousel() {
   //   const collectionName = isSeoUrls()
@@ -15,16 +13,7 @@ export function Carousel() {
   //     collection: collectionName,
   //   });
 
-  const { items, generateProducts } = useRandomProducts();
-
-  useEffect(() => {
-    // Call generateProducts to generate random products before component is mounted
-    generateProducts(3); // You can change the number as needed
-  }, []);
-
-  const useProducts = useRandomProducts();
-
-  const products = useProducts.items;
+  const products = fakeProducts;
 
   if (!products?.length) return null;
 

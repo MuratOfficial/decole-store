@@ -1,5 +1,4 @@
-"use client";
-import useRandomProducts from "@/hooks/use-random-product";
+import { fakeProducts } from "@/lib/fakeData";
 import { GridTileImage } from "./tile";
 // import { getCollectionProducts } from "lib/shopware";
 // import { isSeoUrls } from "lib/shopware/helpers";
@@ -62,9 +61,7 @@ export function ThreeItemGrid() {
   //     collection: collectionName,
   //   });
 
-  const useProducts = useRandomProducts();
-
-  const arrayOfRandomProducts: Product[] = useProducts.items;
+  const arrayOfRandomProducts: Product[] = fakeProducts;
 
   if (
     !arrayOfRandomProducts[0] ||
