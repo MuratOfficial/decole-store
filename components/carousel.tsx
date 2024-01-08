@@ -5,8 +5,9 @@
 import Link from "next/link";
 import { GridTileImage } from "./grid/tile";
 import useRandomProducts from "@/hooks/use-random-product";
+import { useEffect } from "react";
 
-export async function Carousel() {
+export function Carousel() {
   //   const collectionName = isSeoUrls()
   //     ? "Summer-BBQ/Hidden-Carousel-Category"
   //     : "ff7bf3c59f1342a685844fbf8fdf9dc8";
@@ -14,7 +15,16 @@ export async function Carousel() {
   //     collection: collectionName,
   //   });
 
-  const products = useRandomProducts(3);
+  const { items, generateProducts } = useRandomProducts();
+
+  useEffect(() => {
+    // Call generateProducts to generate random products before component is mounted
+    generateProducts(3); // You can change the number as needed
+  }, []);
+
+  const useProducts = useRandomProducts();
+
+  const products = useProducts.items;
 
   if (!products?.length) return null;
 

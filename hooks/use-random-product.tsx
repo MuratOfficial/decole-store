@@ -1,10 +1,14 @@
 import { Money, Product } from "@/lib/types";
-import { useEffect, useState } from "react";
+import { create } from "zustand";
 
-const useRandomProducts = (num: number): Product[] => {
-  const [randomProducts, setRandomProducts] = useState<Product[]>([]);
+interface RandomProductsStore {
+  items: Product[];
+  generateProducts: (num: number) => void;
+}
 
-  useEffect(() => {
+const useRandomProducts = create<RandomProductsStore>((set) => ({
+  items: [],
+  generateProducts: (num: number) => {
     const generateRandomNumber = (min: number, max: number): number => {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     };
@@ -109,15 +113,13 @@ const useRandomProducts = (num: number): Product[] => {
       };
     };
 
-    // Generate an array of 3 random products
+    // Generate an array of random products based on the specified number
     const randomProductsArray: Product[] = Array.from(
       { length: num },
       generateRandomProduct
     );
-    setRandomProducts(randomProductsArray);
-  }, []);
-
-  return randomProducts;
-};
+    set({ items: randomProductsArray });
+  },
+}));
 
 export default useRandomProducts;

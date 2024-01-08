@@ -53,7 +53,7 @@ function ThreeItemGridItem({
 
 // Generate an array of 3 random products
 
-export async function ThreeItemGrid() {
+export function ThreeItemGrid() {
   // Collections that start with `hidden-*` are hidden from the search page.
   // //   const collectionName = isSeoUrls()
   // //     ? "Summer-BBQ/Hidden-Category"
@@ -62,7 +62,9 @@ export async function ThreeItemGrid() {
   //     collection: collectionName,
   //   });
 
-  const arrayOfRandomProducts: Product[] = useRandomProducts(3);
+  const useProducts = useRandomProducts();
+
+  const arrayOfRandomProducts: Product[] = useProducts.items;
 
   if (
     !arrayOfRandomProducts[0] ||
