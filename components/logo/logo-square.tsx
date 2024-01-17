@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import LogoIcon from "./logo/logo";
+import LogoIcon from "../icons/logo";
 
 export default function LogoSquare({ size }: { size?: "sm" | undefined }) {
   return (
@@ -13,8 +13,6 @@ export default function LogoSquare({ size }: { size?: "sm" | undefined }) {
       )}
     >
       <LogoIcon
-        width={20}
-        height={20}
         className={clsx({
           "h-[16px] w-[16px]": !size,
           "h-[10px] w-[10px]": size === "sm",

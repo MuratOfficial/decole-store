@@ -1,56 +1,19 @@
-import Cart from "components/cart";
+// import Cart from "components/cart";
 import OpenCart from "components/cart/open-cart";
-import LogoSquare from "components/logo-square";
-import { Menu } from "lib/types";
+import LogoSquare from "../logo/logo-square";
+
+import { Menu } from "@/lib/types";
 import Link from "next/link";
 import { Suspense } from "react";
 import MobileMenu from "./mobile-menu";
 import Search from "./search";
+const { SITE_NAME } = process.env;
 
-export default function Navbar() {
-  const menu = [
+export default async function Navbar() {
+  const menu: Menu[] = [
     {
-      id: "1",
-      title: "Home",
-      path: "/home",
-      type: "link",
-      children: [],
-    },
-    {
-      id: "2",
-      title: "Products",
-      path: "/products",
-      type: "dropdown",
-      children: [
-        {
-          id: "2-1",
-          title: "Electronics",
-          path: "/products/electronics",
-          type: "link",
-          children: [],
-        },
-        {
-          id: "2-2",
-          title: "Clothing",
-          path: "/products/clothing",
-          type: "link",
-          children: [],
-        },
-      ],
-    },
-    {
-      id: "3",
-      title: "About Us",
-      path: "/about",
-      type: "link",
-      children: [],
-    },
-    {
-      id: "4",
-      title: "Contact",
-      path: "/contact",
-      type: "link",
-      children: [],
+      title: "Главная",
+      path: "/",
     },
   ];
 
@@ -60,12 +23,15 @@ export default function Navbar() {
         <MobileMenu menu={menu} />
       </div>
       <div className="flex w-full items-center">
-        <div className="flex w-full md:w-4/6">
+        <div className="flex w-full md:w-1/3">
           <Link
             href="/"
             className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
           >
             <LogoSquare />
+            <div className="ml-2 flex-none text-sm font-medium uppercase md:hidden lg:block">
+              {SITE_NAME}
+            </div>
           </Link>
           {menu.length ? (
             <ul className="hidden gap-6 text-sm md:flex md:items-center">
@@ -82,13 +48,11 @@ export default function Navbar() {
             </ul>
           ) : null}
         </div>
-        <div className="hidden justify-center md:flex md:w-1/6">
+        <div className="hidden justify-center md:flex md:w-1/3">
           <Search />
         </div>
-        <div className="flex justify-end md:w-1/6">
-          <Suspense fallback={<OpenCart />}>
-            <Cart />
-          </Suspense>
+        <div className="flex justify-end md:w-1/3">
+          <Suspense fallback={<OpenCart />}>{/* <Cart /> */}</Suspense>
         </div>
       </div>
     </nav>
