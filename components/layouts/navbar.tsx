@@ -15,6 +15,10 @@ export default async function Navbar() {
       title: "Главная",
       path: "/",
     },
+    {
+      title: "Продукция",
+      path: "/collection",
+    },
   ];
 
   return (

@@ -4,19 +4,13 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Navbar from "@/components/layouts/navbar";
 
-const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-  ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-  : "http://localhost:3000";
+const baseUrl = "http://localhost:3000";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
     default: "De'Cole",
     template: `%s | De'Cole`,
-  },
-  robots: {
-    follow: true,
-    index: true,
   },
 };
 
