@@ -1,29 +1,28 @@
 import { Collection } from "./types";
 
-export enum VercelSortKeys {
-  RELEVANCE = "RELEVANCE",
-  BEST_SELLING = "BEST_SELLING",
-  CREATED_AT = "CREATED_AT",
-  PRICE = "PRICE",
-}
-
 export const defaultSort: Collection = {
-  name: "Example",
-  id: "example",
+  name: "По умолчанию",
+  id: "default",
 };
 
 export const sorting: Collection[] = [
   defaultSort,
   {
-    id: "collection1",
-    name: "Collection 1",
+    id: "price",
+    name: "По цене",
   },
   {
-    id: "collection2",
-    name: "Collection 2",
+    id: "name",
+    name: "По названию",
   },
   {
-    id: "collection3",
-    name: "Collection 3",
+    id: "data",
+    name: "По свежести",
   },
 ];
+
+export const TAGS = {
+  collections: "collections",
+  products: "products",
+  cart: "cart",
+};

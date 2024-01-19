@@ -145,7 +145,6 @@ const fakeProducts: Product[] = [
     tags: ["Tag1", "Tag2"],
     updatedAt: "2024-01-18T12:00:00Z",
   },
-  // Repeat the structure for additional products (2-5)
 ];
 
 export default fakeProducts;

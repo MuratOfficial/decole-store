@@ -4,8 +4,8 @@ import { defaultSort, sorting } from "lib/constants";
 import fakeProducts from "@/lib/fake-products";
 
 export const metadata = {
-  title: "Search",
-  description: "Search for products in the store.",
+  title: "Продукция",
+  description: "Поиск продукции в коллекции De'Cole",
 };
 
 export default function SearchPage({
@@ -14,7 +14,7 @@ export default function SearchPage({
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   const { sort, q: searchValue } = searchParams as { [key: string]: string };
-  //   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
+  const { id } = sorting.find((item) => item.id === sort) || defaultSort;
 
   const products = fakeProducts;
   const resultsText = products.length > 1 ? "results" : "result";
@@ -24,8 +24,8 @@ export default function SearchPage({
       {searchValue ? (
         <p className="mb-4">
           {products.length === 0
-            ? "There are no products that match "
-            : `Showing ${products.length} ${resultsText} for `}
+            ? "Совпадении не найдено "
+            : `Показаны ${products.length} ${resultsText} по `}
           <span className="font-bold">&quot;{searchValue}&quot;</span>
         </p>
       ) : null}

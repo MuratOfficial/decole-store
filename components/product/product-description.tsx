@@ -1,5 +1,8 @@
 import Price from "components/price";
 import { Product } from "@/lib/types";
+import Prose from "../prose";
+import { AddToCart } from "../cart/add-to-cart";
+import { VariantSelector } from "./variant-selector";
 
 export function ProductDescription({ product }: { product: Product }) {
   return (
@@ -10,6 +13,19 @@ export function ProductDescription({ product }: { product: Product }) {
           <Price amount={product.price} currencyCode="KZT" />
         </div>
       </div>
+      <VariantSelector options={product.colors} variants={product.options} />
+
+      {product.description ? (
+        <Prose
+          className="mb-6 text-sm leading-tight dark:text-white/[60%]"
+          html={product.description}
+        />
+      ) : null}
+
+      <AddToCart
+        variants={product.options}
+        availableForSale={product.availableForSale}
+      />
     </>
   );
 }

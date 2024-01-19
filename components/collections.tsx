@@ -6,7 +6,7 @@ import fakeCollections from "@/lib/fake-collections";
 
 function CollectionList() {
   const collections = fakeCollections;
-  return <FilterList list={collections} title="Collections" />;
+  return <FilterList list={collections} title="Коллекции" />;
 }
 
 const skeleton = "mb-3 h-4 w-5/6 animate-pulse rounded";

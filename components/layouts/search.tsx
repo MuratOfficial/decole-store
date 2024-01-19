@@ -1,5 +1,6 @@
 "use client";
 
+import { createUrl } from "@/lib/utils";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -20,7 +21,7 @@ export default function Search() {
       newParams.delete("q");
     }
 
-    // router.push(createUrl("/search", newParams));
+    router.push(createUrl("/search", newParams));
   }
 
   return (
@@ -32,7 +33,7 @@ export default function Search() {
         key={searchParams?.get("q")}
         type="text"
         name="search"
-        placeholder="Search for products..."
+        placeholder="Поиск продукции"
         autoComplete="off"
         defaultValue={searchParams?.get("q") || ""}
         className="w-full rounded-lg border bg-white px-4 py-2 text-sm text-black placeholder:text-neutral-500 dark:border-neutral-800 dark:bg-transparent dark:text-white dark:placeholder:text-neutral-400"
