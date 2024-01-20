@@ -4,7 +4,7 @@ import FooterMenu from "./footer-menu";
 import LogoSquare from "../logo/logo-square";
 import { Suspense } from "react";
 
-const { COMPANY_NAME, SITE_NAME } = process.env;
+const { COMPANY_NAME, PUBLIC_NAME } = process.env;
 
 export default async function Footer() {
   const menu = [
@@ -19,7 +19,7 @@ export default async function Footer() {
   const skeleton =
     "w-full h-6 animate-pulse rounded bg-neutral-200 dark:bg-neutral-700";
 
-  const copyrightName = COMPANY_NAME || SITE_NAME || "";
+  const copyrightName = COMPANY_NAME || PUBLIC_NAME || "";
 
   return (
     <footer className="text-sm text-neutral-500 dark:text-neutral-400">
@@ -30,7 +30,7 @@ export default async function Footer() {
             href="/"
           >
             <LogoSquare size="sm" />
-            <span className="uppercase">{SITE_NAME}</span>
+            <span className="uppercase">{PUBLIC_NAME}</span>
           </Link>
         </div>
         <Suspense
