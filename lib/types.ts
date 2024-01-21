@@ -9,9 +9,9 @@ export type Product = {
   availableForSale: boolean;
   title: string;
   description: string;
-  options: ProductOption[];
+  options: string[];
   price: string;
-  colors: Colors[];
+  colors: string[];
   collection: Collection;
   images: Image[];
   tags: string[];
@@ -21,18 +21,6 @@ export type Product = {
 export type Image = {
   url: string;
   altText: string;
-};
-
-export type ProductOption = {
-  id: string;
-  name: string;
-  values: string[];
-};
-
-export type Colors = {
-  id: string;
-  name: string;
-  values: string[];
 };
 
 export type Collection = {

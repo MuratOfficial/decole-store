@@ -1,7 +1,25 @@
+import { DataTable } from "@/components/ui/data-table";
 import Link from "next/link";
 import React from "react";
+import { format } from "date-fns";
+import { CollectionColumn, columns } from "./components/columns";
+import prismadb from "@/lib/prismadb";
+import { ru } from "date-fns/locale";
 
-function AdminCollectionsPage() {
+async function AdminCollectionsPage() {
+  const collection = await prismadb.collection.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  const formattedCollections: CollectionColumn[] = collection.map((item) => ({
+    id: item.id,
+    name: item.name,
+
+    createdAt: format(item.createdAt, "PPP", { locale: ru }),
+  }));
+
   return (
     <div className="p-4 w-full items-center flex flex-col gap-4">
       <div className="w-full flex flex-row relative">
@@ -47,25 +65,9 @@ function AdminCollectionsPage() {
           Добавить
         </Link>
       </div>
-
-      <table className="w-full border-collapse border border-gray-400 overflow-x-auto">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="border border-gray-400 p-2">#</th>
-            <th className="border border-gray-400 p-2">Название</th>
-            <th className="border border-gray-400 p-2">Коллекция</th>
-            <th className="border border-gray-400 p-2">Цена</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr className="bg-white">
-            <td className="border border-gray-400 p-2">1</td>
-            <td className="border border-gray-400 p-2">2</td>
-            <td className="border border-gray-400 p-2">1</td>
-            <td className="border border-gray-400 p-2">6</td>
-          </tr>
-        </tbody>
-      </table>
+      <div className="w-full">
+        <DataTable columns={columns} data={formattedCollections} />
+      </div>
     </div>
   );
 }

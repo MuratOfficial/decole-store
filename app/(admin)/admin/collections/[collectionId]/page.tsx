@@ -1,12 +1,22 @@
 import React from "react";
+import { CollectionForm } from "./components/collection-form";
+import prismadb from "@/lib/prismadb";
 
-function CollectionAddPage() {
+async function CollectionAddPage({
+  params,
+}: {
+  params: {
+    collectionId: string;
+  };
+}) {
+  const collection = await prismadb.collection.findUnique({
+    where: {
+      id: params.collectionId,
+    },
+  });
   return (
     <div className="w-full py-4 px-6 items-center flex flex-col">
-      <h1 className="w-fit mx-auto text-2xl font-semibold">
-        {" "}
-        Создать/обновить коллекцию
-      </h1>
+      <CollectionForm initialData={collection} />
     </div>
   );
 }
