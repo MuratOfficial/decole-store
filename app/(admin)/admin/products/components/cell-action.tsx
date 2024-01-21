@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { Button } from "@/components/ui/button";
-import { CollectionColumn } from "./columns";
+import { ProductColumn } from "./columns";
 
 import {
   DropdownMenu,
@@ -15,7 +15,7 @@ import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 
 interface CellActionProps {
-  data: CollectionColumn;
+  data: ProductColumn;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
@@ -29,7 +29,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   const onDelete = async () => {
     try {
-      await axios.delete(`/api/collections/${data.id}`);
+      await axios.delete(`/api/products/${data.id}`);
       router.refresh();
       //   toast({ description: "Блог удален", variant: "default" });
     } catch (error) {
@@ -52,7 +52,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Действия</DropdownMenuLabel>
           <DropdownMenuItem
-            onClick={() => router.push(`/admin/collections/${data.id}`)}
+            onClick={() => router.push(`/admin/products/${data.id}`)}
           >
             <Edit className="mr-2 h-4 w-4" />
             Обновить

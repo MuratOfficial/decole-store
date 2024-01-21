@@ -5,19 +5,25 @@ import { Suspense } from "react";
 import { GridTileImage } from "components/grid/tile";
 import Footer from "@/components/layouts/footer";
 import { Gallery } from "components/product/gallery";
-import { Image } from "@/lib/types";
 import Link from "next/link";
 import fakeProducts from "@/lib/fake-products";
 import { ProductDescription } from "@/components/product/product-description";
+import prismadb from "@/lib/prismadb";
+import { Image } from "@prisma/client";
 
-export default function ProductPage({
+export default async function ProductPage({
   params,
 }: {
   params: { productId: string };
 }) {
-  const product = fakeProducts.find(
-    (product) => product.path === params.productId
-  );
+  const product = await prismadb.product.findUnique({
+    where: {
+      id: params.productId,
+    },
+    include: {
+      images: true,
+    },
+  });
 
   if (!product) return notFound();
 
@@ -29,7 +35,7 @@ export default function ProductPage({
             <Gallery
               images={product.images.map((image: Image) => ({
                 src: image.url,
-                altText: image.altText,
+                altText: image.id,
               }))}
             />
           </div>

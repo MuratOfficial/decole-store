@@ -1,7 +1,23 @@
+import prismadb from "@/lib/prismadb";
 import Link from "next/link";
 import React from "react";
 
-function AdminPage() {
+async function AdminPage() {
+  const product = await prismadb.product.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      collection: true,
+    },
+  });
+
+  const collection = await prismadb.collection.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
   return (
     <div className="p-4 w-full items-center flex flex-col gap-4">
       <h1 className="w-fit mx-auto text-2xl font-semibold">
@@ -10,8 +26,8 @@ function AdminPage() {
       <div className="w-full grid grid-flow-row grid-cols-3 gap-4">
         <div className="border rounded-md p-4 row-span-3">
           <ul>
-            <li>Продукция: </li>
-            <li>Коллекция: </li>
+            <li>Продукция: {product.length}</li>
+            <li>Коллекция: {collection.length}</li>
           </ul>
         </div>
         <Link

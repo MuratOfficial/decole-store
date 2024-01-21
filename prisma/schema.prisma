@@ -25,10 +25,14 @@ model Product {
   images           Image[]
   availableForSale Boolean    @default(true)
   title            String
-  description      String
-  options          String
+  description      String     @db.LongText
+  option1          String
+  option2          String
+  option3          String
   price            String
-  colors           String
+  color1           String
+  color2           String
+  color3           String
   collectionId     String
   collection       Collection @relation("ProductToCollection", fields: [collectionId], references: [id])
   tags             String

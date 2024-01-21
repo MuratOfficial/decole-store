@@ -1,7 +1,6 @@
 "use client";
 
 import clsx from "clsx";
-import { ProductOption, Colors } from "@/lib/types";
 import { createUrl } from "lib/utils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
@@ -15,22 +14,21 @@ export function VariantSelector({
   options,
   variants,
 }: {
-  options: ProductOption[];
-  variants: Colors[];
+  options: string[];
+  variants: string[];
 }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const hasNoOptionsOrJustOneOption =
-    !options.length ||
-    (options.length === 1 && options[0]?.values.length === 1);
+    !options.length || (options.length === 1 && options[0]?.length === 1);
 
   if (hasNoOptionsOrJustOneOption) {
     return null;
   }
 
   const combinations: Combination[] = variants.map((variant) => ({
-    id: variant.id,
+    id: variant,
     availableForSale: true,
   }));
 
@@ -40,7 +38,7 @@ export function VariantSelector({
         <dt className="mb-4 text-sm uppercase tracking-wide">Размер</dt>
         <dd className="flex flex-wrap gap-3">
           {variants.map((value) => {
-            const optionNameLowerCase = value.name.toLowerCase();
+            const optionNameLowerCase = value.toLowerCase();
 
             // Base option params on current params so we can preserve any other param state in the url.
             const optionSearchParams = new URLSearchParams(
@@ -49,14 +47,13 @@ export function VariantSelector({
 
             // Update the option params using the current option to reflect how the url *would* change,
             // if the option was clicked.
-            optionSearchParams.set(optionNameLowerCase, value.name);
+            optionSearchParams.set(optionNameLowerCase, value);
             const optionUrl = createUrl(pathname, optionSearchParams);
             const filtered = Array.from(optionSearchParams.entries()).filter(
               ([key, value]) =>
                 options.find(
                   (option) =>
-                    option.name.toLowerCase() === key &&
-                    option.values.includes(value)
+                    option.toLowerCase() === key && option.includes(value)
                 )
             );
             const isAvailableForSale = combinations.find((combination) =>
@@ -67,18 +64,17 @@ export function VariantSelector({
             );
 
             // The option is active if it's in the url params.
-            const isActive =
-              searchParams.get(optionNameLowerCase) === value.name;
+            const isActive = searchParams.get(optionNameLowerCase) === value;
 
             return (
               <button
-                key={value.id}
+                key={value}
                 aria-disabled={!isAvailableForSale}
                 disabled={!isAvailableForSale}
                 onClick={() => {
                   router.replace(optionUrl, { scroll: false });
                 }}
-                title={`${value.name} ${value}${
+                title={`${value} ${value}${
                   !isAvailableForSale ? " (Нету в наличии)" : ""
                 }`}
                 className={clsx(
@@ -92,7 +88,7 @@ export function VariantSelector({
                   }
                 )}
               >
-                {value.name}
+                {value}
               </button>
             );
           })}
@@ -102,7 +98,7 @@ export function VariantSelector({
         <dt className="mb-4 text-sm uppercase tracking-wide">Цвет</dt>
         <dd className="flex flex-wrap gap-3">
           {options.map((value) => {
-            const optionNameLowerCase = value.name.toLowerCase();
+            const optionNameLowerCase = value.toLowerCase();
 
             // Base option params on current params so we can preserve any other param state in the url.
             const optionSearchParams = new URLSearchParams(
@@ -111,14 +107,13 @@ export function VariantSelector({
 
             // Update the option params using the current option to reflect how the url *would* change,
             // if the option was clicked.
-            optionSearchParams.set(optionNameLowerCase, value.name);
+            optionSearchParams.set(optionNameLowerCase, value);
             const optionUrl = createUrl(pathname, optionSearchParams);
             const filtered = Array.from(optionSearchParams.entries()).filter(
               ([key, value]) =>
                 options.find(
                   (option) =>
-                    option.name.toLowerCase() === key &&
-                    option.values.includes(value)
+                    option.toLowerCase() === key && option.includes(value)
                 )
             );
             const isAvailableForSale = combinations.find((combination) =>
@@ -129,18 +124,17 @@ export function VariantSelector({
             );
 
             // The option is active if it's in the url params.
-            const isActive =
-              searchParams.get(optionNameLowerCase) === value.name;
+            const isActive = searchParams.get(optionNameLowerCase) === value;
 
             return (
               <button
-                key={value.id}
+                key={value}
                 aria-disabled={!isAvailableForSale}
                 disabled={!isAvailableForSale}
                 onClick={() => {
                   router.replace(optionUrl, { scroll: false });
                 }}
-                title={`${value.name} ${value}${
+                title={`${value} ${value}${
                   !isAvailableForSale ? " (Нету в наличии)" : ""
                 }`}
                 className={clsx(
@@ -154,7 +148,7 @@ export function VariantSelector({
                   }
                 )}
               >
-                {value.name}
+                {value}
               </button>
             );
           })}

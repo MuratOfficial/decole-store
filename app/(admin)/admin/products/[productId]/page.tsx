@@ -1,12 +1,28 @@
 import React from "react";
+import { ProductForm } from "./components/product-form";
+import prismadb from "@/lib/prismadb";
 
-function ProductPageAdd() {
+async function ProductPageAdd({
+  params,
+}: {
+  params: {
+    productId: string;
+  };
+}) {
+  const product = await prismadb.product.findUnique({
+    where: {
+      id: params.productId,
+    },
+    include: {
+      images: true,
+    },
+  });
+
+  const collections = await prismadb.collection.findMany({});
+
   return (
     <div className="w-full py-4 px-6 items-center flex flex-col">
-      <h1 className="w-fit mx-auto text-2xl font-semibold">
-        {" "}
-        Создать/обновить продукт
-      </h1>
+      <ProductForm initialData={product} collections={collections} />
     </div>
   );
 }

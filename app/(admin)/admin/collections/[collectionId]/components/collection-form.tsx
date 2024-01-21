@@ -95,7 +95,7 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({
 
   return (
     <>
-      <div className=" items-center  w-full grid grid-flow-row grid-cols-3">
+      <div className=" items-center  w-full grid grid-flow-row grid-cols-3 py-2">
         <div className="col-span-1">
           <Link
             href="/admin/collections"
@@ -137,7 +137,7 @@ export const CollectionForm: React.FC<CollectionFormProps> = ({
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 w-full"
+          className="space-y-8 w-full py-2"
         >
           <div className="md:grid md:grid-cols-3 gap-8">
             <FormField

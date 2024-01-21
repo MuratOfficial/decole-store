@@ -1,14 +1,16 @@
 import { GridTileImage } from "components/grid/tile";
-import { Product } from "@/lib/types";
 import Link from "next/link";
 import fakeProducts from "@/lib/fake-products";
+import { Image, Product } from "@prisma/client";
 
 function ThreeItemGridItem({
   item,
   size,
   priority,
 }: {
-  item: Product;
+  item: Product & {
+    images: Image[];
+  };
   size: "full" | "half";
   priority?: boolean;
 }) {
@@ -22,7 +24,7 @@ function ThreeItemGridItem({
     >
       <Link
         className="relative block aspect-square h-full w-full"
-        href={`${item.path}`}
+        href={`${item.id}`}
       >
         <GridTileImage
           src={item.images[0].url}
@@ -46,9 +48,15 @@ function ThreeItemGridItem({
   );
 }
 
-export function ThreeItemGrid() {
+interface ThreeItemGridProps {
+  data: (Product & {
+    images: Image[];
+  })[];
+}
+
+export function ThreeItemGrid({ data }: ThreeItemGridProps) {
   // Collections that start with `hidden-*` are hidden from the search page.
-  const homepageItems = fakeProducts;
+  const homepageItems = data;
 
   if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2]) return null;
 

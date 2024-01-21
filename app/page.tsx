@@ -1,6 +1,7 @@
 import { Carousel } from "@/components/carousel";
 import { ThreeItemGrid } from "@/components/grid/three-items-grid";
 import Footer from "@/components/layouts/footer";
+import prismadb from "@/lib/prismadb";
 
 export const metadata = {
   title: "De Cole | Магазин бижутерии De Cole",
@@ -11,11 +12,20 @@ export const metadata = {
   },
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const products = await prismadb.product.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+    include: {
+      images: true,
+    },
+  });
+
   return (
     <>
-      <ThreeItemGrid />
-      <Carousel />
+      <ThreeItemGrid data={products} />
+      <Carousel data={products} />
       <Footer />
     </>
   );
