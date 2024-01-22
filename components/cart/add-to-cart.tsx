@@ -4,7 +4,6 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 // import { addItem } from "components/cart/actions";
 import LoadingDots from "components/loading-dots";
-import { ProductOption } from "@/lib/types";
 import { useSearchParams } from "next/navigation";
 import { useFormState, useFormStatus } from "react-dom";
 
@@ -71,12 +70,12 @@ export function AddToCart({
   variants,
   availableForSale,
 }: {
-  variants: ProductOption[];
+  variants: string[];
   availableForSale: boolean;
 }) {
   //   const [message, formAction] = useFormState("", null);
   const searchParams = useSearchParams();
-  const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
+  const defaultVariantId = variants.length === 1 ? variants[0] : undefined;
   //   const defaultProductId =
   //     variants.length === 1 ? variants[0]?.parentId : undefined;
   //   const variant = variants.find((variant: ProductOption) =>
