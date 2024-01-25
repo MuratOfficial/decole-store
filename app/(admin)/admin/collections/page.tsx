@@ -1,6 +1,6 @@
 import { DataTable } from "@/components/ui/data-table";
 import Link from "next/link";
-import React from "react";
+import React, { Suspense } from "react";
 import { format } from "date-fns";
 import { CollectionColumn, columns } from "./components/columns";
 import prismadb from "@/lib/prismadb";
@@ -66,7 +66,9 @@ async function AdminCollectionsPage() {
         </Link>
       </div>
       <div className="w-full">
-        <DataTable columns={columns} data={formattedCollections} />
+        <Suspense fallback={<div>Загружается...</div>}>
+          <DataTable columns={columns} data={formattedCollections} />
+        </Suspense>
       </div>
     </div>
   );

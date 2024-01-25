@@ -1,6 +1,6 @@
 import prismadb from "@/lib/prismadb";
 import Link from "next/link";
-import React from "react";
+import React, { Suspense } from "react";
 
 async function AdminPage() {
   const product = await prismadb.product.findMany({
@@ -26,8 +26,10 @@ async function AdminPage() {
       <div className="w-full grid grid-flow-row grid-cols-3 gap-4">
         <div className="border rounded-md p-4 row-span-3">
           <ul>
-            <li>Продукция: {product.length}</li>
-            <li>Коллекция: {collection.length}</li>
+            <Suspense>
+              <li>Продукция: {product.length}</li>
+              <li>Коллекция: {collection.length}</li>
+            </Suspense>
           </ul>
         </div>
         <Link

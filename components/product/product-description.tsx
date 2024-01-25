@@ -3,6 +3,7 @@ import Prose from "../prose";
 import { AddToCart } from "../cart/add-to-cart";
 import { VariantSelector } from "./variant-selector";
 import { Product } from "@prisma/client";
+import { Suspense } from "react";
 
 export function ProductDescription({ product }: { product: Product }) {
   const colors = [product.color1, product.color2, product.color3];
@@ -16,7 +17,9 @@ export function ProductDescription({ product }: { product: Product }) {
           <Price amount={product.price} currencyCode="KZT" />
         </div>
       </div>
-      <VariantSelector options={colors} variants={variants} />
+      <Suspense>
+        <VariantSelector options={colors} variants={variants} />
+      </Suspense>
 
       {product.description ? (
         <Prose
@@ -24,11 +27,12 @@ export function ProductDescription({ product }: { product: Product }) {
           html={product.description}
         />
       ) : null}
-
-      <AddToCart
-        variants={variants}
-        availableForSale={product.availableForSale}
-      />
+      <Suspense>
+        <AddToCart
+          variants={variants}
+          availableForSale={product.availableForSale}
+        />
+      </Suspense>
     </>
   );
 }

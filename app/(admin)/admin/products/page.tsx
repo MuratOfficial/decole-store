@@ -1,6 +1,6 @@
 import { DataTable } from "@/components/ui/data-table";
 import Link from "next/link";
-import React from "react";
+import React, { Suspense } from "react";
 import { ProductColumn, columns } from "./components/columns";
 import prismadb from "@/lib/prismadb";
 import { format } from "date-fns";
@@ -73,7 +73,9 @@ async function AdminProductsPage() {
       </div>
 
       <div className="w-full">
-        <DataTable columns={columns} data={formattedProducts} />
+        <Suspense fallback={<div>Загружается...</div>}>
+          <DataTable columns={columns} data={formattedProducts} />
+        </Suspense>
       </div>
     </div>
   );
