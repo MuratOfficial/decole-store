@@ -1,4 +1,4 @@
-import { Collection } from "@/lib/types";
+import { Collection } from "@prisma/client";
 import FilterItemDropdown from "./dropdown";
 import { FilterItem } from "./item";
 

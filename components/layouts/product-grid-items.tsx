@@ -1,20 +1,22 @@
+import { Image, Product } from "@prisma/client";
 import Grid from "components/grid";
 import { GridTileImage } from "components/grid/tile";
-import { Product } from "@/lib/types";
 import Link from "next/link";
 
 export default function ProductGridItems({
   products,
 }: {
-  products: Product[];
+  products: (Product & {
+    images: Image[];
+  })[];
 }) {
   return (
     <>
       {products.map((product) => (
-        <Grid.Item key={product.path} className="animate-fadeIn">
+        <Grid.Item key={product.id} className="animate-fadeIn">
           <Link
             className="relative inline-block h-full w-full"
-            href={`${product.path}`}
+            href={`${product.id}`}
           >
             <GridTileImage
               alt={product.title}

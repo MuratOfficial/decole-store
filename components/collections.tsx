@@ -3,9 +3,15 @@ import { Suspense } from "react";
 
 import FilterList from "./filter";
 import fakeCollections from "@/lib/fake-collections";
+import prismadb from "@/lib/prismadb";
 
-function CollectionList() {
-  const collections = fakeCollections;
+async function CollectionList() {
+  const collections = await prismadb.collection.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
   return <FilterList list={collections} title="Коллекции" />;
 }
 
