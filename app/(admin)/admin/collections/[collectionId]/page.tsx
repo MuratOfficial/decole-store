@@ -9,11 +9,18 @@ async function CollectionAddPage({
     collectionId: string;
   };
 }) {
-  const collection = await prismadb.collection.findUnique({
-    where: {
-      id: params.collectionId,
-    },
-  });
+  let collection;
+
+  if (params.collectionId === "new") {
+    collection = null;
+  } else {
+    collection = await prismadb.collection.findUnique({
+      where: {
+        id: params.collectionId,
+      },
+    });
+  }
+
   return (
     <div className="w-full py-4 px-6 items-center flex flex-col">
       <CollectionForm initialData={collection} />

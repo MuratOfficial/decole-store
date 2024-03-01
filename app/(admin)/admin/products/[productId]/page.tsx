@@ -9,14 +9,20 @@ async function ProductPageAdd({
     productId: string;
   };
 }) {
-  const product = await prismadb.product.findUnique({
-    where: {
-      id: params.productId,
-    },
-    include: {
-      images: true,
-    },
-  });
+  let product;
+
+  if (params.productId === "new") {
+    product = null;
+  } else {
+    product = await prismadb.product.findUnique({
+      where: {
+        id: params.productId,
+      },
+      include: {
+        images: true,
+      },
+    });
+  }
 
   const collections = await prismadb.collection.findMany({});
 
