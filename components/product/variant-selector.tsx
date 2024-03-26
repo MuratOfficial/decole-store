@@ -37,7 +37,7 @@ export function VariantSelector({
       <dl className="mb-8">
         <dt className="mb-4 text-sm uppercase tracking-wide">Размер</dt>
         <dd className="flex flex-wrap gap-3">
-          {variants.map((value) => {
+          {variants.map((value, index) => {
             const optionNameLowerCase = value.toLowerCase();
 
             // Base option params on current params so we can preserve any other param state in the url.
@@ -68,7 +68,7 @@ export function VariantSelector({
 
             return (
               <button
-                key={value}
+                key={`${value}-${index}`}
                 aria-disabled={!isAvailableForSale}
                 disabled={!isAvailableForSale}
                 onClick={() => {
@@ -97,7 +97,7 @@ export function VariantSelector({
       <dl className="mb-8">
         <dt className="mb-4 text-sm uppercase tracking-wide">Цвет</dt>
         <dd className="flex flex-wrap gap-3">
-          {options.map((value) => {
+          {options.map((value, index) => {
             const optionNameLowerCase = value.toLowerCase();
 
             // Base option params on current params so we can preserve any other param state in the url.
@@ -105,8 +105,6 @@ export function VariantSelector({
               searchParams.toString()
             );
 
-            // Update the option params using the current option to reflect how the url *would* change,
-            // if the option was clicked.
             optionSearchParams.set(optionNameLowerCase, value);
             const optionUrl = createUrl(pathname, optionSearchParams);
             const filtered = Array.from(optionSearchParams.entries()).filter(
@@ -128,7 +126,7 @@ export function VariantSelector({
 
             return (
               <button
-                key={value}
+                key={`${value}-${index}`}
                 aria-disabled={!isAvailableForSale}
                 disabled={!isAvailableForSale}
                 onClick={() => {

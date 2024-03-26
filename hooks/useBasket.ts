@@ -1,4 +1,5 @@
 import { Image, Product } from "@prisma/client";
+import toast from "react-hot-toast";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
@@ -25,14 +26,14 @@ const useBaskets = create(
         set((state) => {
           // Check if the item ID already exists in the counts object
           if (!state.counts[item.id]) {
-            // If the item ID is not in the counts object, increment uniqueItemCount
+            toast.success("Продукт добавлен в корзину");
             return {
               basket: [...state.basket, item],
               counts: { ...state.counts, [item.id]: 1 }, // Initialize count for the item
               uniqueItemCount: state.uniqueItemCount + 1,
             };
           } else {
-            // If the item ID already exists in the counts object, increment count for the item
+            toast("Добавлено в корзину");
             const updatedCounts = {
               ...state.counts,
               [item.id]: state.counts[item.id] + 1,
