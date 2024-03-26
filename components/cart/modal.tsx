@@ -58,7 +58,7 @@ export default function CartModal({
     products.forEach((product) => {
       message += `${product?.title}: ${counts[product.id]} x (${
         product.price
-      }₸)\n`;
+      }₸)\nФото:${product?.images[0].url}\n`;
     });
 
     const encodedMessage = encodeURIComponent(message);
