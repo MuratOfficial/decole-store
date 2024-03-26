@@ -47,6 +47,23 @@ export default function CartModal({
   const quantity = useBaskets().getItemCount;
   const totalSum = useBaskets().getTotalBasketPrice();
   const costOfItem = useBaskets().getTotalPrice;
+  const counts = useBaskets().counts;
+
+  function generateWhatsAppLink(
+    products: (Product & { images: TypeImage[] })[],
+    counts: Record<string, number>
+  ) {
+    let message = "Здравствуйте, хотел бы заказать следующие товары:\n";
+
+    products.forEach((product) => {
+      message += `${product?.title}: ${counts[product.id]} x (${
+        product.price
+      }₸)\n`;
+    });
+
+    const encodedMessage = encodeURIComponent(message);
+    return `https://wa.me/77075255505?text=${encodedMessage}`;
+  }
 
   useEffect(() => {
     // Open cart modal when quantity changes.
@@ -197,10 +214,11 @@ export default function CartModal({
                     </div>
                   </div>
                   <a
-                    href="/"
+                    href={generateWhatsAppLink(lines, counts)}
+                    target="_blank"
                     className="block w-full rounded-full bg-blue-600 p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
                   >
-                    Перейти к форме отправки
+                    Отправить по Whatsapp
                   </a>
                 </div>
               )}

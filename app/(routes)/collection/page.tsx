@@ -28,9 +28,7 @@ export default async function SearchPage({
       images: true,
     },
     where: {
-      collectionId: {
-        contains: id,
-      },
+      collectionId: id,
 
       title: {
         contains: query,
