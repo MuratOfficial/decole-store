@@ -13,6 +13,7 @@ function SubmitButton({
   availableForSale: boolean;
   product: Product & { images: Image[] };
 }) {
+  const addToBasket = useBaskets().addToBasket;
   const buttonClasses =
     "relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white";
 
@@ -37,8 +38,6 @@ function SubmitButton({
   //     </button>
   //   );
   // }
-
-  const addToBasket = useBaskets().addToBasket;
 
   return (
     <button
