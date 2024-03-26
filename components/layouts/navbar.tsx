@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import MobileMenu from "./mobile-menu";
 import Search from "./search";
+import Cart from "../cart";
 const { PUBLIC_NAME } = process.env;
 
 export default async function Navbar() {
@@ -60,7 +61,9 @@ export default async function Navbar() {
           </Suspense>
         </div>
         <div className="flex justify-end md:w-1/3">
-          <Suspense fallback={<OpenCart />}>{/* <Cart /> */}</Suspense>
+          <Suspense fallback={<OpenCart />}>
+            <Cart />
+          </Suspense>
         </div>
       </div>
     </nav>

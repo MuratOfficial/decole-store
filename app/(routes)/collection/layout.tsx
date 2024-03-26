@@ -19,7 +19,7 @@ export default function SearchLayout({
           {children}
         </div>
         <div className="order-none flex-none md:order-last md:w-[125px]">
-          <FilterList list={sorting} title="Фильтр по" />
+          <FilterList stringList={sorting} title="Фильтр по" />
         </div>
       </div>
       <Footer />

@@ -11,6 +11,25 @@ import { ProductDescription } from "@/components/product/product-description";
 import prismadb from "@/lib/prismadb";
 import { Image } from "@prisma/client";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { productId: string };
+}): Promise<Metadata> {
+  const product = await prismadb.product.findUnique({
+    where: {
+      id: params.productId,
+    },
+    include: {
+      images: true,
+    },
+  });
+
+  return {
+    title: `${product?.title}`,
+  };
+}
+
 export default async function ProductPage({
   params,
 }: {

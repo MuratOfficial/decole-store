@@ -2,7 +2,6 @@ import clsx from "clsx";
 import { Suspense } from "react";
 
 import FilterList from "./filter";
-import fakeCollections from "@/lib/fake-collections";
 import prismadb from "@/lib/prismadb";
 
 async function CollectionList() {

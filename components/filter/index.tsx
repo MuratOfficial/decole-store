@@ -2,14 +2,24 @@ import { Collection } from "@prisma/client";
 import FilterItemDropdown from "./dropdown";
 import { FilterItem } from "./item";
 import { Suspense } from "react";
+import { SortFilter } from "@/lib/constants";
 
-function FilterItemList({ list }: { list: Collection[] }) {
+function FilterItemList({
+  list,
+  sortList,
+}: {
+  list?: Collection[];
+  sortList?: SortFilter[];
+}) {
   return (
     <>
       <Suspense>
-        {list.map((item: Collection, i) => (
-          <FilterItem key={i} item={item} />
-        ))}
+        {list &&
+          list.map((item: Collection, i) => <FilterItem key={i} item={item} />)}
+        {sortList &&
+          sortList.map((item: SortFilter, i) => (
+            <FilterItem key={i} sortItem={item} />
+          ))}
       </Suspense>
     </>
   );
@@ -17,10 +27,12 @@ function FilterItemList({ list }: { list: Collection[] }) {
 
 export default function FilterList({
   list,
+  stringList,
   title,
 }: {
-  list: Collection[];
+  list?: Collection[];
   title?: string;
+  stringList?: SortFilter[];
 }) {
   return (
     <>
@@ -32,10 +44,10 @@ export default function FilterList({
             </h3>
           ) : null}
           <ul className="hidden md:block">
-            <FilterItemList list={list} />
+            <FilterItemList list={list} sortList={stringList} />
           </ul>
           <ul className="md:hidden">
-            <FilterItemDropdown list={list} />
+            <FilterItemDropdown list={list || []} />
           </ul>
         </Suspense>
       </nav>

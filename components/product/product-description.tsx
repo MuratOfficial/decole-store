@@ -1,11 +1,16 @@
+"use client";
 import Price from "components/price";
 import Prose from "../prose";
 import { AddToCart } from "../cart/add-to-cart";
 import { VariantSelector } from "./variant-selector";
-import { Product } from "@prisma/client";
+import { Image, Product } from "@prisma/client";
 import { Suspense } from "react";
 
-export function ProductDescription({ product }: { product: Product }) {
+export function ProductDescription({
+  product,
+}: {
+  product: Product & { images: Image[] };
+}) {
   const colors = [product.color1, product.color2, product.color3];
 
   const variants = [product.option1, product.option2, product.option3];
@@ -31,6 +36,7 @@ export function ProductDescription({ product }: { product: Product }) {
         <AddToCart
           variants={variants}
           availableForSale={product.availableForSale}
+          product={product}
         />
       </Suspense>
     </>

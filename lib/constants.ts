@@ -1,33 +1,21 @@
-import { Collection } from "@prisma/client";
+export type SortFilter = {
+  name: string;
+  sort: string;
+};
 
 const newDate = new Date();
 
-export const defaultSort: Collection = {
+export const defaultSort: SortFilter = {
   name: "По умолчанию",
-  id: "default",
-  createdAt: newDate,
-  updatedAt: newDate,
+  sort: "default",
 };
 
-export const sorting: Collection[] = [
+export const sorting: SortFilter[] = [
   defaultSort,
+
   {
-    id: "price",
-    name: "По цене",
-    createdAt: newDate,
-    updatedAt: newDate,
-  },
-  {
-    id: "name",
-    name: "По названию",
-    createdAt: newDate,
-    updatedAt: newDate,
-  },
-  {
-    id: "data",
+    sort: "data",
     name: "По свежести",
-    createdAt: newDate,
-    updatedAt: newDate,
   },
 ];
 

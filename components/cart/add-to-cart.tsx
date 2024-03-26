@@ -1,65 +1,55 @@
 "use client";
 
+import useBaskets from "@/hooks/useBasket";
 import { PlusIcon } from "@heroicons/react/24/outline";
+import { Image, Product } from "@prisma/client";
 import clsx from "clsx";
 // import { addItem } from "components/cart/actions";
-import LoadingDots from "components/loading-dots";
-import { useSearchParams } from "next/navigation";
-import { useFormState, useFormStatus } from "react-dom";
 
 function SubmitButton({
   availableForSale,
-  selectedVariantId,
+  product,
 }: {
   availableForSale: boolean;
-  selectedVariantId: string | undefined;
+  product: Product & { images: Image[] };
 }) {
-  const { pending } = useFormStatus();
   const buttonClasses =
     "relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white";
-  const disabledClasses = "cursor-not-allowed opacity-60 hover:opacity-60";
 
   if (!availableForSale) {
     return (
-      <button aria-disabled className={clsx(buttonClasses, disabledClasses)}>
+      <button aria-disabled className={clsx(buttonClasses)}>
         Нету в наличии
       </button>
     );
   }
 
-  if (!selectedVariantId) {
-    return (
-      <button
-        aria-label="Пожалуйста, выберите вариант"
-        aria-disabled
-        className={clsx(buttonClasses, disabledClasses)}
-      >
-        <div className="absolute left-0 ml-4">
-          <PlusIcon className="h-5" />
-        </div>
-        Добавить в корзину
-      </button>
-    );
-  }
+  // if (!selectedVariantId) {
+  //   return (
+  //     <button
+  //       aria-label="Пожалуйста, выберите вариант"
+  //       className={clsx(buttonClasses)}
+  //     >
+  //       <div className="absolute left-0 ml-4">
+  //         <PlusIcon className="h-5" />
+  //       </div>
+  //       Добавить в корзину
+  //     </button>
+  //   );
+  // }
+
+  const addToBasket = useBaskets().addToBasket;
 
   return (
     <button
-      onClick={(e: React.FormEvent<HTMLButtonElement>) => {
-        if (pending) e.preventDefault();
-      }}
+      onClick={() => addToBasket(product)}
       aria-label="Add to cart"
-      aria-disabled={pending}
       className={clsx(buttonClasses, {
         "hover:opacity-90": true,
-        disabledClasses: pending,
       })}
     >
       <div className="absolute left-0 ml-4">
-        {pending ? (
-          <LoadingDots className="mb-3 bg-white" />
-        ) : (
-          <PlusIcon className="h-5" />
-        )}
+        <PlusIcon className="h-5" />
       </div>
       Добавить к корзине
     </button>
@@ -69,13 +59,14 @@ function SubmitButton({
 export function AddToCart({
   variants,
   availableForSale,
+  product,
 }: {
   variants: string[];
   availableForSale: boolean;
+  product: Product & { images: Image[] };
 }) {
   //   const [message, formAction] = useFormState("", null);
-  const searchParams = useSearchParams();
-  const defaultVariantId = variants.length === 1 ? variants[0] : undefined;
+
   //   const defaultProductId =
   //     variants.length === 1 ? variants[0]?.parentId : undefined;
   //   const variant = variants.find((variant: ProductOption) =>
@@ -91,14 +82,11 @@ export function AddToCart({
   //   });
 
   return (
-    <form>
-      <SubmitButton
-        availableForSale={availableForSale}
-        selectedVariantId={""}
-      />
+    <div>
+      <SubmitButton availableForSale={availableForSale} product={product} />
       <p aria-live="polite" className="sr-only" role="status">
         {/* {message} */}
       </p>
-    </form>
+    </div>
   );
 }
