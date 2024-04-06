@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { CollectionColumn, columns } from "./components/columns";
 import prismadb from "@/lib/prismadb";
 import { ru } from "date-fns/locale";
+import { Loader } from "lucide-react";
 
 async function AdminCollectionsPage() {
   const collection = await prismadb.collection.findMany({
@@ -66,7 +67,13 @@ async function AdminCollectionsPage() {
         </Link>
       </div>
       <div className="w-full">
-        <Suspense fallback={<div>Загружается...</div>}>
+        <Suspense
+          fallback={
+            <div className="w-full h-full flex justify-center items-center">
+              <Loader className="w-8 h-8 animate-spin" />
+            </div>
+          }
+        >
           <DataTable columns={columns} data={formattedCollections} />
         </Suspense>
       </div>
