@@ -26,6 +26,7 @@ export default function ProductGridItems({
                 currencyCode: "KZT",
               }}
               src={product.images[0]?.url}
+              priority
               fill
               sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
             />
